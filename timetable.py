@@ -98,11 +98,11 @@ def modify_data_to_timetable(df: pd.DataFrame) -> list[pd.DataFrame]:
     return dfs
 
 
-def load_sql_to_dataframe(query: str, file_name: str) -> pd.DataFrame:
+def load_sql_to_dataframe(query: str, file_name: str, testing=False) -> pd.DataFrame:
 
     path = os.path.join(os.getcwd(), file_name)
 
-    if not os.path.exists("data.pkl") or True:
+    if not os.path.exists("data.pkl") or not testing:
         conn = connect_to_access(path)
 
         # Using pandas to execute the query
@@ -150,6 +150,8 @@ def main():
     classes_dfs = modify_data_to_timetable(df)
 
     generate_timetable(classes_dfs)
+
+    print("Successfully created a new timetable.")
 
 
 if __name__ == "__main__":
